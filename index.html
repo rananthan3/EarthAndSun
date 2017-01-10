@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+ 
+<head>
+  <title>Space</title>
+ 
+  <style>
+    body {
+      margin: 0px;
+      padding: 50px;
+    }
+ 
+    #myCanvas {
+      border: 1px #CCC solid;
+    }
+  </style>
+</head>
+ 
+<body>
+  <div id="container">
+    <canvas id="myCanvas" width="1446" height="975"> 
+    </canvas>
+  </div>
+ 
+  <script>
+    var mainCanvas = document.getElementById("myCanvas");
+    var mainContext = mainCanvas.getContext('2d');
+	img = new Image();
+	img.src = "world.jpeg";
+	img1 = new Image();
+	img1.src = "sun.jpeg";
+ 
+    
+ 
+    function Circle(speed) {
+      this.radius = 300;
+      this.speed = speed;
+      this.width = 10;
+      this.xPos =720;
+      this.yPos = 450;
+      //this.opacity = 0.05 + Math.random() * 0.5;
+ 
+      this.counter = 0;
+ 
+      var signHelper = Math.floor(Math.random() * 2);
+ 
+      if (signHelper == 1) {
+        this.sign = -1;
+      } else {
+        this.sign = 1;
+      }
+    }
+ 
+    Circle.prototype.update = function() {
+ 
+      this.counter += this.sign * this.speed;
+ 
+      mainContext.beginPath();
+ 
+      mainContext.arc(this.xPos + Math.cos(this.counter / 100) * this.radius,
+        this.yPos + Math.sin(this.counter / 100) * this.radius,
+        this.width,
+        0,
+        Math.PI * 2,
+        false);
+ 
+      mainContext.closePath();
+ 
+      mainContext.fillStyle = '#134c22';
+      mainContext.fill();
+    };
+ 
+    
+      
+    //var randomX = Math.round(-200 + Math.random() * 700);
+    //var randomY = Math.round(-200 + Math.random() * 700);
+    var speed = 0.2 + Math.random() * 3;
+    //var size = 5 + Math.random() * 100;
+ 
+    var circle = new Circle(2);  
+      
+   draw();   
+   
+ 
+    function draw() {
+
+      mainContext.clearRect(0, 0, 1446, 975);
+	  var c = document.getElementById("myCanvas");
+	  var ctx = c.getContext("2d");
+	  ctx.beginPath();
+	  //ctx.arc(720, 450, 40, 0, 2 * Math.PI);
+	  //ctx.stroke();
+	  //ctx.fillStyle = '#f3f62a';
+	  ctx.fill();
+	  ctx.font = "30px Arial";
+	  ctx.strokeText("Earth and Sun",650,50);     
+      circle.update();
+	  //ctx.drawImage(img, 0, 0);
+	  ctx.drawImage(img1, 555, 325);      
+      requestAnimationFrame(draw);
+	
+
+    }
+
+	
+  		
+  		
+	
+	
+
+
+
+  </script>
+</body>
+ 
+</html>
